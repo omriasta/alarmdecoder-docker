@@ -1,0 +1,52 @@
+{% from "macros/_form.html" import render_form %}
+
+{% extends 'setup/layout.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block pagejs %}
+{% include 'js/setup/test.js' %}
+{% endblock %}
+
+{% block body %}
+<div id="setup" class="container">
+	<h3>Device Testing</h3>
+	
+	<div>
+		<table id="test_results">
+			<tr id='test-open'>
+				<td class='test-description'>Opening device</td>
+				<td class='test-results'><img src="{{ url_for('static', filename='img/spinner.gif') }}"></td>
+				<td class='details'></td>
+			</tr>
+			<tr id='test-config'>
+				<td class='test-description'>Saving device configuration</td>
+				<td class='test-results'><img src="{{ url_for('static', filename='img/spinner.gif') }}"></td>
+				<td class='details'></td>
+			</tr>
+			<tr id='test-send'>
+				<td class='test-description'>Keypad communication (Send)</td>
+				<td class='test-results'><img src="{{ url_for('static', filename='img/spinner.gif') }}"></td>
+				<td class='details'></td>
+			</tr>
+			<tr id='test-recv'>
+				<td class='test-description'>Keypad communication (Receive)</td>
+				<td class='test-results'><img src="{{ url_for('static', filename='img/spinner.gif') }}"></td>
+				<td class='details'></td>
+			</tr>
+		</table>
+	</div>
+
+	<div>
+		<p>
+
+		</p>
+	</div>
+	<br>
+    {{ render_form(url_for('setup.test'), form) }}
+</div>
+{% endblock %}
+
+{% block js_btm %}
+{% endblock %}

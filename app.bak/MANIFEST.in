@@ -1,0 +1,18 @@
+# http://docs.python.org/distutils/sourcedist.html#manifest-template
+# http://docs.python.org/distutils/sourcedist.html#specifying-the-files-to-distribute
+
+include LICENSE
+
+# Including
+# Python source files, test/*.py will be automatically included.
+recursive-include ad2web *.py
+# Templates
+recursive-include ad2web/templates *
+# Static files
+recursive-include ad2web/static *
+# Translations
+recursive-include ad2web/translations *
+
+# Excluding
+recursive-exclude ad2web *.pyc
+recursive-exclude tests *.pyc

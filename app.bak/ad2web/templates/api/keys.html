@@ -1,0 +1,53 @@
+{% from "macros/_form.html" import render_form %}
+
+{% set page_title = 'API' %}
+
+{% extends "layouts/base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/smoothness/jquery-ui-1.10.4.custom.css') }}">
+{% endblock %}
+
+{% block pagejs %}
+{% include 'js/api/keys.js' %}
+{% endblock %}
+
+{% block body %}
+<div id="data">
+    <h3>API Keys</h3>
+
+    <div id="loading"></div>
+    <div id="datatable" style="display: none;">
+        <table id="buttons-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Key</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.name }}</td>
+                        <td>{% if user.apikey %}{{ user.apikey[0].key }}{% else %}None{% endif %}</td>
+                        <td>
+                            <center>
+                                <a class="btn btn-primary" href="{{ url_for('api_settings.generate_key', user_id=user.id) }}">Generate</a>
+                                <a class="btn btn-primary" href="{{ url_for('api_settings.disable_key', user_id=user.id) }}">Disable</a>
+                            </center>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_btm %}
+<script src="{{ url_for('static', filename='js/vendor/jquery-ui-1.10.4.custom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/datatables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/spin.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.spin.js') }}"></script>
+{% endblock %}

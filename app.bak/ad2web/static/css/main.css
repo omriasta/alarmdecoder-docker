@@ -1,0 +1,573 @@
+#nojs {
+    border: 1px dashed #FFB2B2;
+    background: #FFE6E6;
+    width: 50%;
+    margin: 0 auto;
+    padding: 5px;
+}
+
+#nojs p {
+    color: red;
+    margin: 0 auto;
+}
+
+.form-actions {
+    padding: 0;
+    background-color: #fff;
+    border-top: none;
+}
+
+.help-inline {
+    font-size: 90%;
+}
+
+.progress-in-table {
+    margin-bottom: 0;
+}
+
+.navbar {
+    width: 100%;
+}
+.navbar-inner {
+    width: 100%;
+}
+.navbar .container {
+    width: 65%;
+}
+
+.container #setup {
+    position: relative;
+    left: 30px;
+    width: 80% !important;
+}
+
+.container #setup2 {
+    position: relative;
+    width: 80% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+.container #data {
+    width: 70%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container .settings_wrapper {
+    width: 70%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+.container .nav-tabs {
+    width: 70%;
+    position: relative;
+    left: 15%;
+}
+
+.mobile .container .nav-tabs {
+    position: relative;
+    left: 15% !important;
+    width: 70%;
+}
+
+.tablet .container .nav-tabs {
+    position: relative;
+    width: 70%;
+    left: 15% !important;
+}
+
+.container #flash_message_container {
+    width: 80% !important;
+    position: relative;
+    margin: 0 auto;
+}
+/* Sign up */
+.btn-signup {
+    color: white;
+    text-decoration: none;
+}
+
+/* 
+ * Sticky footer 
+ * http://twitter.github.io/bootstrap/examples/sticky-footer.html
+ * */
+
+html,
+body { 
+    height: 100%;
+    overflow-x: hidden;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+}
+
+#push,
+#footer {
+    height: 60px;
+    z-index: 10;
+}
+#footer {
+    background-color: #f5f5f5;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+@media (max-width: 767px) {
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.footer-links {
+    text-align: center;
+    font-size: 12px;
+    line-height: 45px;
+    text-shadow: 0 1px 0 white;
+    background-color: whiteSmoke;
+    border-top: 1px solid #E5E5E5;
+    width: 100%;
+}
+
+.footer-links li {
+    display: inline;
+    padding: 0 2px;
+}
+
+.footer-links li:first-child {
+    padding-left: 0;
+}
+
+/* End of sticky footer */
+
+/* bootstrap + tablesorter */
+
+table .header {
+    cursor: pointer;
+}
+
+table .header:after {
+    content: "";
+    float: right;
+    margin-top: 7px;
+    border-width: 0 4px 4px;
+    border-style: solid;
+    border-color: #000000 transparent;
+    visibility: hidden;
+}
+
+table .headerSortUp, table .headerSortDown {
+    background-color: #f7f7f9;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+
+table .header:hover:after {
+    visibility: visible;
+}
+
+table .headerSortDown:after, table .headerSortDown:hover:after {
+    visibility: visible;
+    filter: alpha(opacity=60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+}
+
+table .headerSortUp:after {
+    border-bottom: none;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #000000;
+    visibility: visible;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    filter: alpha(opacity=60);
+    -moz-opacity: 0.6;
+    opacity: 0.6;
+}
+
+.table-borderless td,
+.table-borderless th{ 
+    border: 0 !important
+}
+
+/* dataTables */
+table.display {
+    margin: 0px auto;
+    clear: both;
+    border-collapse: collapse;
+}
+
+table {
+    width: 100% !important;
+}
+.ui-widget-header {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    border: inset 1px solid #333;
+    -webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3 );
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3 );
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.paging_full_numbers .ui-button {
+padding: 2px 6px;
+margin: 0;
+cursor: pointer;
+* cursor: hand;
+}
+
+.dataTables_length {
+    padding-left: 5px;
+}
+
+.dataTables_length label {
+    position: relative;
+    top: -3px;
+}
+.dataTables_length label select {
+    position: relative;
+    padding-bottom: 3px !important;
+    top: 4px !important;
+}
+
+.dataTables_filter {
+    float: right;
+    padding-right: 10px;
+}
+
+.dataTables_filter label {
+    position: relative;
+    top: -3px !important;
+}
+.dataTables_filter label input {
+    position: relative;
+    top: 3px !important;
+}
+.dataTables_info {
+    padding-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: 4px;
+}
+
+.dataTables_paginate {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    top: 5px;
+    left: 175px;
+}
+.tablet .dataTables_paginate {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    top: 5px !important;
+    left: 40px !important;
+}
+
+.mobile .dataTables_paginate {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    left: 135px;
+    top: 15px;
+}
+
+#clear {
+    display: none;
+    margin-top: 10px !important;
+    margin-bottom: 5px !important;
+}
+
+#custom_button {
+    position: relative;
+    top: 1px;    
+}
+
+.tablet #custom_button {
+    position: relative;
+    top: 7px;
+}
+.mobile #clear {
+    display: none;
+    margin-top: 45px !important;
+    margin-bottom: 30px !important;
+}
+/* forms */
+input:focus {
+    border: solid 1px #337FD6;
+}
+select:focus {
+    border: solid 1px #337FD6;
+}
+form.form-box {
+    background: -webkit-linear-gradient(left, #CCCCCC, #EEEEEE) !important;
+    background: -moz-linear-gradient(left, #CCCCCC, #EEEEEE);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #999;
+    border: inset 1px solid #333;
+    -webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3 );
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3 );
+}
+
+.form-actions {
+    background: -webkit-linear-gradient(left, #CCCCCC, #EEEEEE) !important;
+    background: -moz-linear-gradient(left, #CCCCCC, #EEEEEE);
+}
+
+label {
+    font-weight: bold !important;
+}
+
+#faq_accordion>div {
+    background: -webkit-linear-gradient(left, #CCCCCC, #EEEEEE) !important;
+    background: -moz-linear-gradient(left, #CCCCCC, #EEEEEE);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #999;
+    border: inset 1px solid #333;
+    -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3 );
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3 );
+    width: 60%;
+}
+.ui-accordion-header {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #999;
+    border: inset 1px solid #333;
+    -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3 );
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3 );
+}
+.ui-accordion-header.ui-state-active {
+    background: -webkit-linear-gradient(left, #CCCCCC, #337FD6);
+    background: -moz-linear-gradient(left, #CCCCCC, #337FD6);
+}
+
+.ui-accordion-content {
+    width: 93% !important;
+}
+div#buttons {
+    margin-top: 30px;
+}
+
+div#buttons, div#buttons > div > span {
+    margin-bottom: 0;
+}
+
+.form-actions {
+    margin-top: 10px;
+}
+
+/* setup */
+span#buttons-previous-group, span#previous-group {
+    float: left;
+    margin-bottom: 0;
+}
+
+span#buttons-next-group, span#next-group {
+    float: right;
+    margin-bottom: 0;
+}
+
+div#zone_expanders ul, div#relay_expanders ul {
+    list-style-type: none;
+}
+
+div#zone_expanders input, div#relay_expanders input {
+    float: left;
+    margin-right: 10px;
+}
+
+div#zone_expanders span, div#relay_expanders span {
+    display: block;
+    overflow: hidden;
+}
+
+div#zone_expanders span label, div#relay_expanders span label {
+    float: right;
+    width: 100%;
+}
+
+/* setup.test */
+table#test_results td.test-description {
+    width: 30%;
+}
+
+table#test_results td.test-results {
+    width: 5%;
+}
+
+table#test_results td.details {
+    width: 65%;
+}
+
+.ui-widget-header {
+    height: 31px !important;
+}
+
+.css_right {
+    float: right;
+}
+
+#cert_info {
+    background: -webkit-linear-gradient(left, #CCCCCC, #EEEEEE) !important;
+    background: -moz-linear-gradient(left, #CCCCCC, #EEEEEE);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #999;
+    border: inset 1px solid #333;
+    -webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+    -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3 );
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3 );
+    width: 70%;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#cert_download {
+    position: relative;
+    text-align: center;
+    float: right;
+}
+
+#cert_cert_cert {
+    position: relative;
+    top: -155px;
+    float: right;
+    text-align: center;
+}
+
+#cert_cert_cert button {
+    width: 150px;
+}
+#cert_cert_key {
+    position: relative;
+    float: right;
+    top: -120px;
+    left: 150px;
+    text-align: center;
+}
+
+#cert_cert_key button {
+    width: 150px;
+}
+#cert_id {
+    margin-bottom: 10px;
+}
+
+#cert_id label {
+    margin-bottom: -2px;
+}
+
+#cert_status {
+    margin-bottom: 10px;
+}
+
+#cert_status label {
+    margin-bottom: -2px;
+}
+
+#cert_created {
+    margin-bottom: 10px;
+}
+
+#cert_created label {
+    margin-bottom: -2px;
+}
+
+#cert_revoked {
+    margin-bottom: 10px;
+}
+
+#cert_revoked label {
+    margin-bottom: -2px;
+}
+
+#cert_name {
+    margin-bottom: 10px;
+}
+
+#cert_name label {
+    margin-bottom: -2px;
+}
+
+#cert_desc {
+    margin-bottom: 10px;
+}
+
+#cert_desc label {
+    margin-bottom: -2px;
+}
+
+/* Notifications */
+div#subscriptions ul {
+    list-style-type: none;
+}
+
+div#subscriptions input {
+    float: left;
+    margin-right: 10px;
+}
+
+div#subscriptions span {
+    display: block;
+    overflow: hidden;
+}
+
+div#subscriptions span label {
+    float: right;
+    width: 100%;
+}
+
+#user-agent {
+    position: relative;
+    top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Notification Buttons */
+span#buttons-cancel-group, span#cancel-group {
+    float: left;
+    margin-bottom: 0;
+}
+
+span#buttons-submit-group, span#submit-group {
+    float: right;
+    margin-bottom: 0;
+}
+
+span#buttons-test-group, span#test-group {
+    float: right;
+    margin-bottom: 0;
+    margin-right: 5px;
+}

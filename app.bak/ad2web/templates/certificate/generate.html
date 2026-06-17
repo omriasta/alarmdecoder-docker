@@ -1,0 +1,17 @@
+{% from "macros/_form.html" import render_form %}
+
+{% set page_title = 'Certificates' %}
+
+{% block css %}
+{% endblock %}
+
+{% extends 'settings/layout.html' %}
+{% block pagejs %}
+<script type="text/javascript">
+</script>
+{% endblock %}
+{% block body %}
+<div id="data">
+    {{ render_form(url_for('certificate.generate'), form) }}
+</div>
+{% endblock %}

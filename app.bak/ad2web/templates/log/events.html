@@ -1,0 +1,47 @@
+{% set page_title = "Event Log" %}
+
+{% extends "log/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/smoothness/jquery-ui-1.10.4.custom.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dataTables.tableTools.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-confirm.min.css') }}">
+{% endblock %}
+
+{% block pagejs %}
+{% include 'js/log/events.js' %}
+{% endblock %}
+{% block body %}
+<div id="data">
+    <div id="loading"></div>
+    <div id="datatable" style="display: none;">
+        <table id="events-table" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Type</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+        </table>
+    </div>
+    <div id="clear">
+        <button type="button" class="btn btn-primary" name="clearbutton" id="clearbutton">Clear</button>
+        <button type="button" class="btn btn-primary" name="refreshbutton" id="refreshbutton" onclick="location.reload();">Reload</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_btm %}
+<script src="{{ url_for('static', filename='js/vendor/jquery-ui-1.10.4.custom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/datatables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/dataTables.tableTools.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/spin.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.spin.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery-confirm.min.js') }}"></script>
+{% endblock %}

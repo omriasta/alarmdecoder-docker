@@ -1,0 +1,27 @@
+{% from "macros/_form.html" import render_form %}
+
+{% extends 'setup/layout.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block pagejs %}
+<script type="text/javascript">
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="setup" class="container">
+	<h3>Network Host Settings</h3>
+	<div>
+		<p>
+			We need a few more settings in order to share your AlarmDecoder on the network.  If you select to use SSL we will also take this opportunity to generate certificates.
+		</p>
+	</div>
+	<br>
+    {{ render_form(url_for('setup.sslserver'), form) }}
+</div>
+{% endblock %}
+
+{% block js_btm %}
+{% endblock %}

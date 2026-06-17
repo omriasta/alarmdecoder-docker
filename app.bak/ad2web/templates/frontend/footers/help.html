@@ -1,0 +1,55 @@
+{% set page_title = "Help" %}
+
+{% extends 'layouts/base.html' %}
+
+{% block css %}
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/smoothness/jquery-ui-1.10.4.custom.css') }}">
+{% endblock %}
+
+{% block pagejs %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#faq_accordion').accordion({
+            "collapsible" : true,
+            "active" : false,
+        });
+
+        $('#user-agent').append(navigator.userAgent).show();
+    });
+</script>
+{% endblock %}
+{% block body %}
+<div id="data">
+<h2>Help</h2>
+<div id="faq_accordion">
+    <h3>Support</h3>
+    <div>
+        <p>
+            You can get support for your device by visiting the forums at <a href="http://www.alarmdecoder.com/forums" style="color: blue;">AlarmDecoder</a> or by emailing <a href="mailto:ad2usb@support.nutech.com" style="color: blue;">Support</a>.
+        </p>
+    </div>
+    <h3>Documentation</h3>
+    <div>
+        <p>
+            You can view documentation for AlarmDecoder products at these locations:
+            <ul>
+                <li><a href="http://www.alarmdecoder.com/wiki/index.php/Main_Page" style="color: blue;">AlarmDecoder Wiki</a></li>
+                <li><a href="http://alarmdecoder.readthedocs.org/en/latest/" style="color: blue;">AlarmDecoder API at Read the Docs</a></li>
+                <li><a href="http://www.alarmdecoder.com/wiki/index.php/AlarmDecoder_WebApp" style="color: blue;">AlarmDecoder WebApp</a></li>
+            </ul>
+        </p>
+    </div>
+    <h3>Open Source</h3>
+    <div>
+        <p>
+            You can download the Open Source projects for AlarmDecoder from <a href="https://github.com/nutechsoftware" style="color: blue;">GitHub</a>.
+        </p>
+    </div>
+</div>
+<div id="user-agent"><strong>User Agent:&nbsp;</strong></div>
+</div>
+{% endblock %}
+
+{% block js_btm %}
+<script src="{{ url_for('static', filename='js/vendor/jquery-ui-1.10.4.custom.js') }}"></script>
+{% endblock %}

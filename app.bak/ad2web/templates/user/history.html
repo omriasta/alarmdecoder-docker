@@ -1,0 +1,40 @@
+{% set page_title = user.name %}
+
+{% extends "settings/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/smoothness/jquery-ui-1.10.4.custom.css') }}">
+{% endblock %}
+{% block pagejs %}
+{% include 'js/user/history.js' %}
+{% endblock %}
+
+{% block body %}
+<div id="data">
+<h2>Login History<small> / {{ user.name }}</small></h2>
+    <div id="loading"></div>
+    <div id="datatable" style="display: none;">
+        <table id="history-table" cellpadding="3" cellspacing="0" border="1" class="display table-hover" bordercolor="EEEEEE">
+            <thead>
+                <th>IP Address</th>
+                <th>Login Time</th>
+                <th>User Agent</th>
+            </thead>
+            {% for history in user_history %}
+                <tr>
+                    <td>{{history.ip_address}}</td>
+                    <td>{{history.login_time}}</td>
+                    <td>{{history.user_agent_string}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_btm %}
+<script src="{{ url_for('static', filename='js/vendor/jquery-ui-1.10.4.custom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/datatables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/spin.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.spin.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+
+{% set page_header = _(active|capitalize) %}
+{% set page_title = page_header %}
+
+{% if ssl == True %}
+{% set tabs = [
+    ("index", url_for('settings.index'), False),
+    ("notifications", url_for('notifications.index'), False),
+    ("zones", url_for('zones.index'), True),
+    ("keypad", url_for('keypad.custom_index'), False),
+    ("cameras", url_for('cameras.cam_list'), False),
+    ("users", url_for('admin.users'), True),
+    ("password", url_for('settings.password'), False),
+    ("certificates", url_for('certificate.index'), False),
+    ("advanced", url_for('settings.advanced'), True),
+]%}
+{% else %}
+{% set tabs = [
+    ("index", url_for('settings.index'), False),
+    ("notifications", url_for('notifications.index'), False),
+    ("zones", url_for('zones.index'), True),
+    ("keypad", url_for('keypad.custom_index'), False),
+    ("cameras", url_for('cameras.cam_list'), False),
+    ("users", url_for('admin.users'), True),
+    ("password", url_for('settings.password'), False),
+    ("advanced", url_for('settings.advanced'), True),
+]%}
+{% endif %}

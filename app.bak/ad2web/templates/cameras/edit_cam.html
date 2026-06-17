@@ -1,0 +1,27 @@
+{% from "macros/_form.html" import render_form %}
+
+{% extends 'settings/layout.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block pagejs %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        createFormTooltip('#name', 'Enter the name of your camera.');
+        createFormTooltip('#username', 'Enter the username to authenticate.');
+        createFormTooltip('#password', 'Enter the password to authenticate.');
+        createFormTooltip('#get_jpg_url', 'Enter the URL where you can take snapshots.\n\n Example: \n http://ipaddress/goform/snapshot');
+    });
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="settings_wrapper">
+    {{ render_form(url_for('cameras.edit_camera', id=id), form) }}
+</div>
+{% endblock %}
+
+{% block js_btm %}
+{% endblock %}
+
