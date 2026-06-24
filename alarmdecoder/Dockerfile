@@ -143,7 +143,7 @@ WORKDIR /opt/alarmdecoder-webapp
 #RUN git checkout dev
 #RUN git checkout master
 RUN pip install "pip==20.3.4"
-RUN pip install "cryptography==3.3.2" -i https://piwheels.org/simple
+RUN pip install "cryptography"
 RUN sudo pip install -r requirements.txt
 WORKDIR /opt/alarmdecoder-webapp/contrib/opencv
 RUN sudo ./opencv.sh
