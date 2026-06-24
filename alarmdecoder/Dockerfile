@@ -51,7 +51,7 @@ RUN sudo apt-get update && sudo apt-get install -y --force-yes\
     --no-install-recommends && \
     sudo rm -rf /var/lib/apt/lists/*
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-RUN source $HOME/.cargo/env
+ENV PATH="/root/.cargo/bin:${PATH}"
 #setup hostname
 RUN sudo su -c 'echo alarmdecoder > /etc/hostname'
 
