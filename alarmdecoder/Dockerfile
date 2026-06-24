@@ -45,13 +45,10 @@ RUN sudo apt-get update && sudo apt-get install -y --force-yes\
     python2.7-dev \
     python-pip \
     python-virtualenv \
-    libssl-dev \
-    libffi-dev \
-    python-setuptools \
+    python-cryptography \
     --no-install-recommends && \
     sudo rm -rf /var/lib/apt/lists/*
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
+
 #setup hostname
 RUN sudo su -c 'echo alarmdecoder > /etc/hostname'
 
@@ -145,7 +142,7 @@ WORKDIR /opt/alarmdecoder-webapp
 #RUN git checkout dev
 #RUN git checkout master
 RUN pip install "pip==20.3.4"
-RUN pip install "cryptography==3.3.2"
+#RUN pip install "cryptography==3.3.2"
 RUN sudo pip install -r requirements.txt
 WORKDIR /opt/alarmdecoder-webapp/contrib/opencv
 RUN sudo ./opencv.sh
