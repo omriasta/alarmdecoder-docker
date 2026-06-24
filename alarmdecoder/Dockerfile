@@ -99,7 +99,6 @@ WORKDIR /opt/alarmdecoder
 RUN pip install "setuptools-scm<2.0"
 RUN pip install "future<21.0"
 RUN pip install "pyserial==2.7"
-ENV SETUPTOOLS_SCM_PRETEND_VERSION_FOR_ALARMDECODER=1.13.14
 RUN sudo python setup.py install
 
 #install nginx by source
@@ -138,7 +137,7 @@ WORKDIR /opt
 COPY alarmdecoder-webapp /opt/alarmdecoder-webapp
 RUN sudo chown -R pi:pi alarmdecoder-webapp
 WORKDIR /opt/alarmdecoder-webapp
-RUN git fetch origin
+#RUN git fetch origin
 #RUN git checkout dev
 #RUN git checkout master
 RUN pip install "pip==20.3.4"
