@@ -1,7 +1,14 @@
 # Pull base image
-FROM resin/rpi-raspbian:jessie
+FROM debian:jessie
 MAINTAINER AlarmDecoder <ad2usb@support.nutech.com>
 
+# Replace sources to use archive and bypass date checking
+RUN echo "deb http://archive.debian.org/debian/ jessie main" > /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian-security jessie/updates main" >> /etc/apt/sources.list \
+    && echo "Acquire::Check-Valid-Until false;" > /etc/apt/apt.conf.d/10-nocheckvalid \
+    && echo "Acquire::Check-Date false;" >> /etc/apt/apt.conf.d/10-nocheckvalid
+
+RUN apt-get update && apt-get install -y --force-yes sudo
 RUN sudo mkdir -p /etc/ser2sock
 
 RUN echo "pi\tALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
@@ -10,7 +17,7 @@ RUN echo "pi\tALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers
 RUN sudo systemctl disable serial-getty@ttyAMA0.service
 
 # Install dependencies
-RUN sudo apt-get update && sudo apt-get install -y \
+RUN sudo apt-get update && sudo apt-get install -y --force-yes\
     supervisor \
     wget \
     unzip \
@@ -69,12 +76,13 @@ RUN sudo ln -s /etc/locale/alias /usr/share/locale/locale.alias
 #RUN sudo dpkg-reconfigure locales
 
 #make sure pip and setuptools are the latest available
-RUN sudo pip install --upgrade setuptools
-RUN sudo pip install --upgrade pip
-
+RUN sudo pip install "setuptools==44.1.1"
+RUN sudo pip install "pip<21.0"
 #install ser2sock and alarmdecoder python library
-RUN sudo git clone http://github.com/nutechsoftware/ser2sock.git
-RUN sudo git clone http://github.com/nutechsoftware/alarmdecoder.git
+#RUN sudo git clone http://github.com/nutechsoftware/ser2sock.git
+COPY ./ser2sock /opt/ser2sock
+#RUN sudo git clone http://github.com/nutechsoftware/alarmdecoder.git
+COPY ./alarmdecoder /opt/alarmdecoder
 RUN sudo /usr/sbin/useradd pi
 RUN echo 'pi:raspberry' | chpasswd
 RUN sudo chown -R pi:pi /opt/ser2sock /opt/alarmdecoder
@@ -88,11 +96,14 @@ RUN sudo cp init/ser2sock /etc/init.d/
 RUN sudo update-rc.d ser2sock defaults
 
 WORKDIR /opt/alarmdecoder
+RUN pip install "setuptools-scm<2.0"
+RUN pip install "future<21.0"
+RUN pip install "pyserial==2.7"
 RUN sudo python setup.py install
 
 #install nginx by source
 RUN sudo service nginx stop
-RUN sudo apt-get -y remove nginx nginx-full
+RUN sudo apt-get -y --force-yes remove nginx nginx-full
 RUN sudo apt-get clean
 ENV VERSION 1.12.1
 WORKDIR /home/pi
@@ -111,23 +122,25 @@ WORKDIR /home/pi
 RUN sudo rm -r nginx-$VERSION
 
 #upgrade gunicorn, hold packages from apt
-RUN sudo pip install gunicorn --upgrade
+RUN sudo pip install "gunicorn==19.0"
 RUN sudo ln -sf /usr/local/bin/gunicorn /usr/bin/gunicorn
 
 #hold packages so apt does not overwrite
 RUN sudo echo "nginx hold" | sudo dpkg --set-selections
 RUN sudo echo "gunicorn hold" | sudo dpkg --set-selections
 
-RUN sudo pip install httplib2
+RUN sudo pip install "httplib2==0.19"
 
 #install webapp
 WORKDIR /opt
-RUN sudo git clone http://github.com/nutechsoftware/alarmdecoder-webapp.git
+#RUN sudo git clone http://github.com/nutechsoftware/alarmdecoder-webapp.git
+COPY alarmdecoder-webapp /opt/alarmdecoder-webapp
 RUN sudo chown -R pi:pi alarmdecoder-webapp
 WORKDIR /opt/alarmdecoder-webapp
 RUN git fetch origin
-RUN git checkout dev
-RUN git checkout master
+#RUN git checkout dev
+#RUN git checkout master
+RUN pip install "pip==20.3.4"
 RUN sudo pip install -r requirements.txt
 WORKDIR /opt/alarmdecoder-webapp/contrib/opencv
 RUN sudo ./opencv.sh
@@ -231,7 +244,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY gen_certs.sh /home/pi/gen_certs.sh
 RUN sudo chmod +x /home/pi/gen_certs.sh
 
-RUN sudo apt-get install -y logrotate
+RUN sudo apt-get install -y --force-yes logrotate
 
 COPY start_services.sh /usr/local/bin/start_services.sh
 RUN sudo chmod +x /usr/local/bin/start_services.sh
