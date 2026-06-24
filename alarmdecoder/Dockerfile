@@ -47,6 +47,7 @@ RUN sudo apt-get update && sudo apt-get install -y --force-yes\
     python-virtualenv \
     libssl-dev \
     libffi-dev \
+    python-setuptools \
     --no-install-recommends && \
     sudo rm -rf /var/lib/apt/lists/*
 
@@ -143,7 +144,7 @@ WORKDIR /opt/alarmdecoder-webapp
 #RUN git checkout dev
 #RUN git checkout master
 RUN pip install "pip==20.3.4"
-RUN pip install "cryptography"
+RUN pip install "cryptography==3.3.2"
 RUN sudo pip install -r requirements.txt
 WORKDIR /opt/alarmdecoder-webapp/contrib/opencv
 RUN sudo ./opencv.sh
