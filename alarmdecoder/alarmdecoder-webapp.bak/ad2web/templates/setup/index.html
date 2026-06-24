@@ -1,0 +1,27 @@
+{% from "macros/_form.html" import render_form %}
+
+{% extends 'setup/layout.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block pagejs %}
+<script type="text/javascript">
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="setup" class="container">
+    <h3>Setup</h3>
+    <div>
+        <p>
+        Welcome to your new AlarmDecoder device!  This setup process will guide you through configuring and accessing your device through the web interface.
+        </p>
+    </div>
+
+    <a class="btn btn-primary" href="{{ url_for('setup.type') }}">Start!</a>
+</div>
+{% endblock %}
+
+{% block js_btm %}
+{% endblock %}

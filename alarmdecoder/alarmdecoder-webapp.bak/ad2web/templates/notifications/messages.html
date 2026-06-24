@@ -1,0 +1,35 @@
+{% from "macros/_form.html" import render_form %}
+
+{% extends 'settings/layout.html' %}
+
+{% block pagejs %}
+{% include 'js/notifications/messages.js' %}
+{% endblock %}
+
+{% block body %}
+<div class="settings_wrapper">
+    <div id="loading"></div>
+    <div id="datatable" style="display: none;">
+        <table id="notifications-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Message Text</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for message in messages %}
+                <tr>
+                    <td>{{ EVENT_TYPES[message.id] }}</td>
+                    <td>
+                        {{ message.text }}
+                    </td>
+                    <td><a href="{{ url_for('notifications.edit_message', id=message.id) }}">Edit</a>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

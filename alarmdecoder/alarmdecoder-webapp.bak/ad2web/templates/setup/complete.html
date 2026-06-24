@@ -1,0 +1,20 @@
+{% from "macros/_form.html" import render_form %}
+
+{% extends 'setup/layout.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block pagejs %}
+<script type="text/javascript">
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="setup" class="container">
+	Setup complete!  Click <a href="{{ url_for('keypad.index') }}">here</a> to start using your device.
+</div>
+{% endblock %}
+
+{% block js_btm %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% set page_title = "AlarmDecoder Application Log" %}
+
+{% extends "log/layout.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/smoothness/jquery-ui-1.10.4.custom.css') }}">
+{% endblock %}
+
+{% block pagejs %}
+{% include 'js/log/alarmdecoder_log.js' %}
+{% endblock %}
+
+{% block body %}
+<div id="data">
+    <label for="num_lines">Lines: </label><select id="num_lines" name="num_lines">
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="75">75</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+    </select>
+    <textarea id="log_data" style="width: 98%; height: 300px; resize: none;"></textarea>
+    <div><strong>Stop Refresh: </strong><input type="checkbox" id="stop_refresh" style="position: relative;  top: -3px;"/></div>
+</div>
+{% endblock %}
+
+{% block js_btm %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% from "macros/_form.html" import render_form %}
+
+{% extends 'settings/layout.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block pagejs %}
+<script type="text/javascript">
+</script>
+{% endblock %}
+{% block body %}
+<div class="settings_wrapper">
+    <h3>UPNP Port Forwarding</h3>
+
+    <div>
+        <h4>Current Internal Port: {{current_internal_port}}</h4><h4>Current External Port: {{current_external_port}}</h4>
+    </div>
+    <div>
+        {{ render_form(url_for('settings.port_forwarding'), form) }}
+    </div>
+    {% if current_external_port %}
+        <br/>
+        <a href="{{ url_for('settings.disable_forwarding') }}" class="btn btn-primary">Disable</a>
+    {% endif %}
+</div>
+<br/>
+<p>
+Internal Address: <a href="https://{{ internal_ip }}">https://{{ internal_ip }}</a>
+</p>
+<p>
+{% if current_external_port %}
+External Address: <a href="https://{{ external_ip }}:{{ current_external_port }}">https://{{ external_ip }}:{{ current_external_port }}</a>
+{% else %}
+External Address: <a href="https://{{ external_ip }}">https://{{ external_ip }}</a>
+{% endif %}
+</p>
+{% endblock %}
+
+{% block js_btm %}
+{% endblock %}
+

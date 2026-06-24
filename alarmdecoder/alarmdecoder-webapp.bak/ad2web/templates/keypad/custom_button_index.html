@@ -1,0 +1,48 @@
+{% from "macros/_form.html" import render_form %}
+
+{% extends 'settings/layout.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/smoothness/jquery-ui-1.10.4.custom.css') }}">
+{% endblock %}
+
+{% block pagejs %}
+{% include 'js/keypad/custom_button.js' %}
+{% endblock %}
+
+{% block body %}
+<div class="settings_wrapper">
+    <div id="loading"></div>
+    <div id="datatable" style="display: none;">
+        <table id="buttons-table" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Label</th>
+                    <th>Code</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for button in buttons %}
+                    <tr>
+                        <td><a href="{{ url_for('keypad.edit_button', id=button.button_id) }}">{{ button.button_id }}</a></td>
+                        <td>{{ button.label }}</td>
+                        <td>{{ button.code }}</td>
+                        <td><a href="{{ url_for('keypad.remove_button', id=button.button_id) }}"><img style="text-align: center; float: right; margin-right: 15px;" src="{{ url_for('static', filename='img/red_x.png') }}"/></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <a id="clear" class="btn btn-primary" href="{{ url_for('keypad.create_button') }}">New Button</a>&nbsp;<a class="btn btn-primary" href="{{ url_for('keypad.special_buttons') }}">Special Buttons</a>
+</div>
+{% endblock %}
+
+{% block js_btm %}
+<script src="{{ url_for('static', filename='js/vendor/jquery-ui-1.10.4.custom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/datatables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/spin.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.spin.js') }}"></script>
+{% endblock %}

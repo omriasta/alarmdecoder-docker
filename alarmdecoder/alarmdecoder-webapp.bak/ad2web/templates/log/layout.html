@@ -1,0 +1,10 @@
+{% extends "layouts/base.html" %}
+
+{% set page_header = _(active|capitalize) %}
+{% set page_title = page_header %}
+
+{% set tabs = [
+    ("events", url_for('log.events'), False),
+    ("live", url_for('log.live'), True),
+    ("app", url_for('log.alarmdecoder_logfile'), True),
+]%}

@@ -1,0 +1,238 @@
+{% macro render_checkbox(field) %}
+<div class="control-group{% if field.errors %} error{% endif %}">
+    <div class="controls">
+        <label for="{{ field.id }}" class="checkbox inline">
+            {{ field }}{{ field.label.text }}
+        </label>
+        <span class="help-inline">{{ field.description }}</span>
+        {% if field.errors -%}
+            {% for error in field.errors -%}
+            <span class="help-block error">{{ error|e }}</span>
+            {%- endfor %}
+        {%- endif %}
+    </div>
+</div>
+{% endmacro%}
+
+{% macro render_radio(field) %}
+<div class="control-group{% if field.errors %} error{% endif %}">
+    {{ field.label(class_="control-label") }}
+    <div class="controls">
+        {% for subfield in field -%}
+        <label for="{{ subfield.id }}" class="radio inline">
+            {{ subfield }} {{ subfield.label.text }}
+        </label>
+        {%- endfor %}
+        <span class="help-inline">{{ field.description }}</span>
+        {% if field.errors -%}
+            {% for error in field.errors -%}
+            <span class="help-block error">{{ error }}</span>
+            {%- endfor %}
+        {%- endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_datepicker(field) %}
+<div class="control-group{% if field.errors %} error{% endif %}">
+    <label class="control-label"
+        for="{{ field.id }}">
+        {{ field.label }}
+    </label>
+    <div class="controls">
+        {{ field() }}
+        <span class="help-inline">{{ field.description }}</span>
+        {% if field.errors -%}
+            {% for error in field.errors -%}
+            <span class="help-block error">{{ error }}</span>
+            {%- endfor %}
+        {%- endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_textarea(field) %}
+<div class="control-group{% if field.errors %} error{% endif %}">
+    <label class="control-label"
+        for="{{ field.id }}">
+        {{ field.label }}
+    </label>
+    <div class="controls">
+        {{ field(class="span6", rows="5") }}
+        <span class="help-inline">{{ field.description }}</span>
+        {% if field.errors -%}
+            {% for error in field.errors -%}
+            <span class="help-block error">{{ error }}</span>
+            {%- endfor %}
+        {%- endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_input(field) %}
+<div class="control-group{% if field.errors %} error{% endif %}">
+    <label class="control-label"
+        for="{{ field.id }}">
+        {{ field.label }}
+    </label>
+    <div class="controls">
+        {{ field(class_=field.short_name) }}
+        <span class="help-inline">{{ field.description }}</span>
+        {% if field.errors -%}
+            {% for error in field.errors -%}
+            <span class="help-block error">{{ error }}</span>
+            {%- endfor %}
+        {%- endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_password(field) %}
+<div class="control-group{% if field.errors %} error{% endif %}">
+    <label class="control-label"
+        for="{{ field.id }}">
+        {{ field.label }}
+    </label>
+    <div class="controls">
+        {{ field(class_=field.short_name, autocomplete='off') }}
+        <span class="help-inline">{{ field.description }}</span>
+        {% if field.errors -%}
+            {% for error in field.errors -%}
+            <span class="help-block error">{{ error }}</span>
+            {%- endfor %}
+        {%- endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_action(field) %}
+<span id="{{ field.name }}-group" class="control-group">
+    <span class="form-actions">
+        {% set classes = "btn" %}
+        {% if field.type == "SubmitField" %}
+            {% set classes = "btn btn-primary" %}
+        {% endif %}
+
+        {{ field(class_=classes) }}
+    </span>
+</span>
+{% endmacro %}
+
+{% macro render_formfield(form) %}
+<div class="control-group{% if form.errors %} error{% endif %}" id="{{ form.id }}">
+    <div class="controls">
+        {% for field in form %}
+            {% if field.type != "HiddenField" and field.type != "CSRFTokenField" %}
+                {% if field.type == "RadioField" %}
+                    {{ render_radio(field) }}
+                {% elif field.type == "BooleanField" %}
+                    {{ render_checkbox(field) }}
+                {% elif field.type == "SubmitField" or field.type == "ButtonField" %}
+                    {{ render_action(field) }}
+                {% elif field.type == "TextAreaField" %}
+                    {{ render_textarea(field) }}
+                {% elif field.type == "DateField" %}
+                    {{ render_datepicker(field) }}
+                {% elif field.type == "TextField" %}
+                    {% if focus %}
+                        {{ render_input(field) }}
+                        {% set focus = False %}
+                    {% else %}
+                        {{ render_input(field) }}
+                    {% endif %}
+                {% elif field.type == "FormField" %}
+                    {{ render_formfield(field) }}
+                {% elif field.type == "FieldList" %}
+                    {% for f in field %}
+                        {{ render_formfield(f) }}
+                    {% endfor %}
+                {% elif field.type == "PasswordField" %}
+                    {{ render_password(field) }}
+                {% else %}
+                    {{ render_input(field) }}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        <span class="help-inline">{{ form.description }}</span>
+        {% if form.errors -%}
+            {% for error in form.errors -%}
+            <span class="help-block error">{{ error }}</span>
+            {%- endfor %}
+        {%- endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_multicheckbox(form) %}
+<div class="control-group{% if form.errors %} error{% endif %}" id="{{ form.id }}">
+    <div class="controls">
+        {{ form.label }}
+        <ul>
+        {% for field in form %}
+            <li>
+                {{ field }}
+                <span>{{ field.label }}</span>
+                <div class="clear"></div>
+            </li>
+        {% endfor %}
+        </ul>
+
+        <span class="help-inline">{{ form.description }}</span>
+        {% if form.errors -%}
+            {% for error in form.errors -%}
+            <span class="help-block error">{{ error }}</span>
+            {%- endfor %}
+        {%- endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_form(url, form, horizontal=False, legend=None, confirm_msg=None, formid=None) %}
+{% set idattr = "id=" + formid if formid else "" %}
+<form {{idattr}} class="form-box {% if horizontal %}form-horizontal{% endif %}" method="POST" action="{{ url }}"
+    {% if confirm_msg %}onsubmit='return confirm("{{ confirm_msg }}");' {% endif %}
+    {% if form.multipart %}enctype="multipart/form-data"{% endif %} >
+    {{ form.hidden_tag() }}
+    <fieldset>
+        {% if legend %}
+        <legend>{{ legend|safe }}</legend>
+        {% endif %}
+        {% set focus = True %}
+        {% for field in form %}
+            {% if field.type != "HiddenField" and field.type != "CSRFTokenField" %}
+                {% if field.type == "RadioField" %}
+                    {{ render_radio(field) }}
+                {% elif field.type == "BooleanField" %}
+                    {{ render_checkbox(field) }}
+                {% elif field.type == "SubmitField" or field.type == "ButtonField" %}
+                    {{ render_action(field) }}
+                {% elif field.type == "TextAreaField" %}
+                    {{ render_textarea(field) }}
+                {% elif field.type == "DateField" %}
+                    {{ render_datepicker(field) }}
+                {% elif field.type == "TextField" %}
+                    {% if focus %}
+                        {{ render_input(field) }}
+                        {% set focus = False %}
+                    {% else %}
+                        {{ render_input(field) }}
+                    {% endif %}
+                {% elif field.type == "FormField" %}
+                    {{ render_formfield(field) }}
+                {% elif field.type == "MultiCheckboxField" %}
+                    {{ render_multicheckbox(field) }}
+                {% elif field.type == "FieldList" %}
+                    {% for f in field %}
+                        {{ render_formfield(f) }}
+                    {% endfor %}
+                {% elif field.type == "PasswordField" %}
+                    {{ render_password(field) }}
+                {% else %}
+                    {{ render_input(field) }}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </fieldset>
+</form>
+{% endmacro %}

@@ -1,0 +1,82 @@
+{% set page_title = certificate.name %}
+
+{% extends 'settings/layout.html' %}
+{% block pagejs %}
+<style type="text/css">
+textarea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0 none transparent;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+    font-family: inherit;
+    font-size: 1em;
+}
+</style>
+{% include 'js/certificate/view.js' %}
+{% endblock %}
+{% block body %}
+<div id="cert_info">
+    {% if certificate.type == 2 %}
+    <div id="cert_download">
+        {% if ca_cert %}
+        Download: <a href="{{ url_for('certificate.download', certificate_id=certificate.id, download_type='pkcs12') }}">PKCS12</a>
+        | <a href="{{ url_for('certificate.download', certificate_id=certificate.id, download_type='tgz') }}">TGZ</a>
+        | <a href="{{ url_for('certificate.download', certificate_id=certificate.id, download_type='bks') }}">BKS</a>
+        {% endif %}
+        <br>
+        <a style="margin-top: 3px; position: relative; float: right; width: 125px;" class="btn btn-primary" href="{{ url_for('certificate.revoke', certificate_id=certificate.id) }}">Revoke certificate</a>
+    </div>
+    {% endif %}
+    {% if certificate.type == 0 and current_user.is_admin() %}
+    <div id="cert_download">
+        <a id="revokeca" style="margin-top: 3px; position: relative; float: right; width: 125px;" class="btn btn-primary" href="{{ url_for('certificate.revokeCA') }}">Revoke CA</a>
+    </div>
+    {% endif %}
+    <div id="cert_id">
+        <label for="certificate-id">Certificate ID</label>
+        <span id="certificate-id">{{ certificate.id }} ({{ TYPES[certificate.type] }})</span>
+    </div>
+    <div id="cert_status">
+        <label for="certificate-status">Status</label>
+        <span id="certificate-status">{{ STATUS[certificate.status] }}</span>
+    </div>
+    <div id="cert_created">
+        <label for="certificate-created">Created on</label>
+        <span id="certificate-created">{{ certificate.created_on|format_date }}</span>
+    </div>
+    {% if certificate.status == 0 %}
+    <div id="cert_revoked">
+        <label for="certificate-revoked">Revoked on</label>
+        <span id="certificate-revoked">{{ certificate.revoked_on|format_date }}</span>
+    </div>
+    {% endif %}
+    <div id="cert_name">
+        <label for="certificate-name">Certificate Name</label>
+        <span id="certificate-name">{{ certificate.name }}</span>
+    </div>
+    <div id="cert_desc">
+        <label for="certificate-description">Description</label>
+        <span id="certificate-description">{{ certificate.description }}</span>
+    </div>
+    <div id="cert_cert_cert">
+        <button id="cert" name="cert" type="button" value="Cert" class="btn btn-primary" style="position: relative;">View Certificate</button>
+        <div id="cert_input" style="display:none;"><p>{{ certificate.certificate }}</p></div>
+    </div>
+    <div id="cert_cert_key">
+        <button id="key" name="key" type="button" value="Key" class="btn btn-primary" style="position: relative;">View Key</button>
+        <div id="cert_key" style="display:none;"><p>{{ certificate.key }}</p></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_btm %}
+<script src="{{ url_for('static', filename='js/vendor/jquery-ui-1.10.4.custom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.confirm.min.js') }}"></script>
+{% endblock %}

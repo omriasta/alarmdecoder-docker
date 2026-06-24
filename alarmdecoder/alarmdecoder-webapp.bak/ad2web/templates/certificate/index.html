@@ -1,0 +1,53 @@
+{% from "macros/_form.html" import render_form %}
+
+{% set page_title = 'Certificates' %}
+
+{% extends 'settings/layout.html' %}
+{% block pagejs %}
+{% include 'js/certificate/cert_index.js' %}
+{% endblock %}
+{% block body %}
+<div id="data">
+    <div id="loading"></div>
+    <div id="datatable" style="display: none;">
+        <table class="display table-hover" cellpadding="3" bordercolor="EEEEEE" border="1" id="certificate-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Owner</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+
+            {% for cert in certificates %}
+                {% if cert.user == current_user or current_user.is_admin() %}
+                <tr>
+                    <td><a href="{{ url_for('certificate.view', certificate_id=cert.id) }}">{{ cert.name }}</a></td>
+                    <td>{{ TYPES[cert.type] }}</td>
+                    <td>{{ STATUS[cert.status] }}</td>
+                    <td>{% if cert.user %}{{ cert.user.name}}{% else %}System{% endif %}</td>
+                    <td>{{ cert.description }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+
+        </table>
+    </div>
+    {% if not ca_cert and current_user.is_admin() %}
+        <a style="margin-top: 5px; width: 95px;" id="generateca" class='btn btn-primary' href="{{ url_for('certificate.generateCA') }}">Generate CA</a>
+    {% endif %}
+    <br>
+    {% if ca_cert %}
+    <a style="margin-top: 5px;" class="btn btn-primary" href="{{ url_for('certificate.generate') }}">New Certificate</a>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block js_btm %}
+<script src="{{ url_for('static', filename='js/vendor/jquery-ui-1.10.4.custom.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/spin.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/vendor/jquery.spin.js') }}"></script>
+{% endblock %}
