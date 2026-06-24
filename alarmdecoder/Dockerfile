@@ -48,6 +48,8 @@ RUN sudo apt-get update && sudo apt-get install -y --force-yes\
     libssl-dev \
     libffi-dev \
     python-setuptools \
+    rust \
+    cargo \
     --no-install-recommends && \
     sudo rm -rf /var/lib/apt/lists/*
 
