@@ -1,0 +1,139 @@
+#!/bin/bash
+# SER2SOCK
+
+### BEGIN INIT INFO
+# Provides: ser2sock
+# Required-Start: $remote_fs
+# Required-Stop: $remote_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: init script for ser2sock instantiation
+# Description: This is the initialization script for ser2sock.
+### END INIT INFO
+
+
+### Customization Instructions
+# 1. Change line 2 to the name you'll be using for this script
+# 2. Change the "Provides:" line to use the same name
+# 3. Save this new script using the new name
+# 4. Create a configuration file in /etc/ser2sock using
+#    the script name: <script filename>.conf
+# 5. sudo cp <script filepath> /etc/init.d/
+# 6. sudo update-rc.d <script filename> defaults
+# 7. sudo /ect/init.d/<script filename> start
+
+
+### -----NO MODIFICATIONS REQUIRED BELOW THIS LINE------
+
+# Change this only if your executable has a different name
+PROGRAM_NAME="ser2sock"
+
+# Use the name of this script as the SCRIPT_NAME
+SCRIPT_NAME=${0##*/}
+
+# Uncoment next line to set user to run daemon as. Best to be a real user like "pi:pi".
+#RUN_AS="root:root"
+
+CONF_FILE="/etc/ser2sock/${SCRIPT_NAME}.conf"
+EXECUTABLE="/usr/local/bin/${PROGRAM_NAME}"
+PID_FILE="/var/run/${PROGRAM_NAME}/${SCRIPT_NAME}.pid"
+EXTRA_START_ARGS=""
+DAEMON_ARGS="-d -f ${CONF_FILE} -P ${PID_FILE}"
+RETVAL=0
+
+BOLD=$(tput bold)
+GREEN=$(tput setaf 2)
+RED=$(tput setaf 1)
+NORMAL=$(tput sgr0)
+
+# PID folder sanity check. /var/run may be a tmp file system so we need to check.
+if [ ! -d /var/run/${PROGRAM_NAME} ]; then
+    mkdir /var/run/${PROGRAM_NAME} 2>/dev/null
+    if [ $? -ne 0 ]; then
+        echo $"${BOLD}${RED}Failed to create PID folder '/var/run/${PROGRAM_NAME}/'"
+        exit 1
+    fi
+fi
+
+# Are we running as a specific user? If so then we need the correct permissions.
+if [ -n "${RUN_AS}" ]; then
+    EXTRA_START_ARGS+=" --chuid ${RUN_AS}"
+    # Set permissions to pid folder for the user
+    chown ${RUN_AS} /var/run/${PROGRAM_NAME} 2>/dev/null
+    if [ $? -ne 0 ]; then
+        echo $"${BOLD}${RED}Failed to set PID folder '/var/run/${PROGRAM_NAME}/' owner to '${RUN_AS}'"
+        exit 1
+    fi
+fi
+
+start() {
+    echo
+    echo $"Starting instantiation ${BOLD}${SCRIPT_NAME}${NORMAL} of ${BOLD}${PROGRAM_NAME}${NORMAL}..."
+    echo
+    echo "Script name       : $SCRIPT_NAME"
+    echo "Executable file   : $EXECUTABLE"
+    echo "Arguments         : $DAEMON_ARGS"
+    echo "Configuration file: $CONF_FILE"
+    echo "PID file          : $PID_FILE"
+    echo
+
+    start-stop-daemon --start $EXTRA_START_ARGS --pidfile $PID_FILE --exec $EXECUTABLE -- \
+        $DAEMON_ARGS >/dev/null 2>&1
+    RETVAL=$?
+
+    if [ $RETVAL = 0 ]; then
+        echo $"${BOLD}${GREEN}Started${NORMAL}"
+    else
+        echo $"${BOLD}${RED}Failed to start - Return Value = ${RETVAL}${NORMAL}"
+    fi
+
+    echo
+    return $RETVAL
+}
+
+stop() {
+    echo
+    echo $"Stopping instantiation ${BOLD}${SCRIPT_NAME}${NORMAL} of ${BOLD}${PROGRAM_NAME}${NORMAL}..."
+    echo
+    echo "Script name       : $SCRIPT_NAME"
+    echo "Executable file   : $EXECUTABLE"
+    echo "PID file          : $PID_FILE"
+    echo
+
+    start-stop-daemon --stop --signal TERM --quiet --retry=TERM/10/KILL/5 --pidfile $PID_FILE \
+	--name $PROGRAM_NAME >/dev/null 2>&1
+    RETVAL=$?
+
+    if [ $RETVAL = 0 ]; then
+        echo $"${BOLD}${GREEN}Stopped${NORMAL}"
+    else
+        if [ $RETVAL = 1 ]; then
+            echo $"${BOLD}${GREEN}Already stopped - Return Value = ${RETVAL}${NORMAL}"
+        else
+            echo $"${BOLD}${RED}Failed to stop - Return Value = ${RETVAL}${NORMAL}"
+        fi
+    fi
+
+#    rm -f $PID_FILE
+
+    echo
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo $"Usage: $PROGRAM_NAME {start|stop|restart}"
+        exit 1
+esac
+
+exit $RETVAL
