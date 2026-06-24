@@ -99,7 +99,7 @@ WORKDIR /opt/alarmdecoder
 RUN pip install "setuptools-scm<2.0"
 RUN pip install "future<21.0"
 RUN pip install "pyserial==2.7"
-ENV RUN SETUPTOOLS_SCM_PRETEND_VERSION_FOR_ALARMDECODER=1.0.0
+RUN sudo SETUPTOOLS_SCM_PRETEND_VERSION=1.13.14 pip install .
 RUN sudo python setup.py install
 
 #install nginx by source
