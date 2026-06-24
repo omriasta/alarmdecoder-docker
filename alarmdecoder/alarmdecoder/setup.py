@@ -14,7 +14,7 @@ if sys.version_info < (3,):
     extra_requirements.append('future>=0.14.3')
 
 setup(name='alarmdecoder',
-    use_scm_version=True,
+    use_scm_version={"fallback_version": "0.1.0-docker"},
     setup_requires=["setuptools_scm"],
     description='Python interface for the AlarmDecoder (AD2) family '
                 'of alarm devices which includes the AD2USB, AD2SERIAL and AD2PI.',
