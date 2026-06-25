@@ -147,7 +147,7 @@ WORKDIR /opt/alarmdecoder-webapp
 RUN pip install "pip==20.3.4"
 RUN pip install "wheel==0.37.1"
 RUN pip install "cffi==0.8.2"
-RUN pip install pip install --no-deps cryptography==2.8
+RUN pip install --no-deps cryptography==2.8
 RUN sudo pip install -r requirements.txt --upgrade-strategy=only-if-needed
 WORKDIR /opt/alarmdecoder-webapp/contrib/opencv
 RUN sudo ./opencv.sh
