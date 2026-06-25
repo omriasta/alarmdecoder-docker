@@ -47,7 +47,7 @@ RUN sudo apt-get update && sudo apt-get install -y --force-yes\
     python-virtualenv \
     python-cryptography \
     libffi-dev \
-    libssl -dev \
+    libssl-dev \
     gcc \
     --no-install-recommends && \
     sudo rm -rf /var/lib/apt/lists/*
