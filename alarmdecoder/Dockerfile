@@ -160,8 +160,8 @@ RUN sudo rm /etc/nginx/sites-enabled/default
 RUN sudo cp contrib/gunicorn.d/alarmdecoder /etc/gunicorn.d/
 RUN sudo chown -R pi:pi /etc/ser2sock
 RUN sudo usermod -a -G dialout pi
-RUN sudo chgrp dialout /etc/hosts /etc/hostname 
-RUN sudo chmod g+w /etc/hosts /etc/hostname 
+#RUN sudo chgrp dialout /etc/hosts /etc/hostname 
+#RUN sudo chmod g+w /etc/hosts /etc/hostname 
 
 #gunicorn systemd file
 RUN sudo echo -e '[Unit]\n\
